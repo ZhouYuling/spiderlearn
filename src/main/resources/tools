@@ -1,0 +1,97 @@
+//1.全局医院url
+public static final String URL = "http://www.nxxzyyy.com";
+public static final int his_id = 2339;
+
+String htmlGBK = JavaSpider.getHtmlGBK("http://www.nxxzyyy.com/doctor-50.aspx");
+Document parse = Jsoup.parse(htmlGBK);
+Elements select = parse.select("div.navL");
+
+//2.科室
+//***notepad++中处理***
+HashMap<String,Integer> map = new HashMap<String,Integer>();
+map.put("重点学科/专科",356);
+map.put("专科设置",357);
+map.put("其他科室",358);
+
+复制
+HashMap<String,Integer> map = new HashMap<String,Integer>();
+map.put(
+替换
+"\r\n       );\r\n
+,"          ,
+//******
+
+String deptName = element.select("li a").text();
+String deptInfoUrl = element.select("li a").attr("href");
+System.out.println(deptName + "  " + deptInfoUrl);
+int sort_no = 10;
+String summary = select3.text();
+String summary_full = select3.html();
+//code dept_code
+String dept_code = deptUrl.substring(deptUrl.lastIndexOf("/") + 1,deptUrl.lastIndexOf("."));
+int pid = map.get(bigDeptName) != null ? map.get(bigDeptName) : -1;
+
+Dept dept = new Dept();
+dept.setHis_id(his_id);
+dept.setDept_name(deptName);
+dept.setDept_code(dept_code);
+dept.setSummary(summary);
+dept.setSummary_full(summary_full);
+dept.setHas_child(1);
+dept.setSort_no(sort_no);
+sort_no ++;
+dept.setPid(pid);
+
+System.out.println(dept.toString());
+MysqlUtil.insertToDept(dept);
+
+//3.医生
+String docName = element1.select("h1").text();
+String dept_name = element1.select("h2").text();
+String head_img = URL + element1.select("a img").attr("src");
+String docInfoUrl = URL + element1.select("a").attr("href");
+int dept_id = map.get(dept_name) != null ? map.get(dept_name) : map.get(bigDept) != null ? map.get(bigDept) :-1;
+String code = docInfoUrl.substring(docInfoUrl.lastIndexOf("-") + 1,docInfoUrl.lastIndexOf("."));
+ImagesUtils.downImages("c:/images" ,head_img);
+String picLoc = "c:/images" + picUrl.substring(picUrl.lastIndexOf("/"));
+
+Doctor doc = new Doctor();
+doc.setHis_id(his_id);
+doc.setDept_id(dept_id);
+doc.setDoctor_name(docName);
+doc.setCode(code);
+doc.setHead_img(head_img);
+doc.setSummary(summary);
+doc.setSummary_full(summary_full);
+doc.setSkill(skill);
+doc.setLevel(level);
+
+System.out.println(doc.toString());
+MysqlUtil.insertToDocter(doc);
+
+//从resources中读取文件信息
+InputStream in = his_02_nt6y.class.getClassLoader().getResourceAsStream("file\\his_02_nt6y\\new_his_07_gghosp");
+InputStreamReader isr=new InputStreamReader (in);
+BufferedReader br = new BufferedReader(isr);
+int his_id = 2340;
+String line2="";
+int sort_no = 7;
+try {
+    while ((line2 = br.readLine()) != null) {
+        System.out.println(line2);
+        System.out.println("------------------------");
+    }
+}catch (Exception e){
+    e.printStackTrace();
+}
+
+String reg = "擅长(.*?)。";    // ( 为特殊字符，需要用 \\ 转义
+Pattern p = Pattern.compile(reg);
+Matcher m = p.matcher(summary);
+String skill = "";
+if(m.find()){
+    skill = m.group(1);
+    System.out.println(skill);  // 组提取字符串 0x993902CE
+}
+
+
