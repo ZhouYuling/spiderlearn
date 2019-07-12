@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: ZhouYuling
@@ -67,15 +68,11 @@ public class UseSelenium {
         //通过html的className
 //        webDriver.findElementByClassName("");
 
-        /**selenium隐式等待**/
-        try {
-            //等待10分钟
-            webDriver.wait(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        /**selenium隐式等待**/  //如果selenium没有在DOM中找到节点，将继续等待，超过设定时间后，则抛出找不到节点的异常
+//        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        webDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
-        /**selenium显示等待**/
+        /**selenium显示等待**/   //指定要查找的节点，然后指定一个最长等待时间，如果在规定时间内加载出来了这个节点，就返回查找的节点；如果到了规定时间依然没有加载出该节点，则抛出节点超时异常
 //        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
 //        WebElement inputKey = webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("q")));//对于输入框、等待10s看能不能输入
 //        WebElement button = webDriverWait.until(ExpectedConditions.elementToBeClickable((By.cssSelector(".btn-search"))));//对于按钮、等待10s看能不能点击

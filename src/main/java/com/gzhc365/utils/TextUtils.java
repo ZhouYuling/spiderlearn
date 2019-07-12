@@ -58,6 +58,7 @@ public class TextUtils {
 
         Pattern p = Pattern.compile(regexRule);
         Matcher m = p.matcher(context);
+
         if(m.find()){
             return m.group(1);//由于regexRule只有一个组、所以只需要匹配1即可。可以使用m.groupCount()判断组数量多少
         }

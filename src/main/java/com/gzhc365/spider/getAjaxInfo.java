@@ -33,6 +33,9 @@ public class getAjaxInfo {
     // ->点击，Preview查看返回结果->Headers中General Request URL异步请求URL->并在Request中找到ajax请求参数
     //3.F12选择点击按钮、查看是否有相应的参数
 
+    /**相当于调用了公司核心平台的接口、为了希望有正确的返回值，那么必须有正确的请求参数、
+     * 怎么获取这些请求参数？自己去找规律了**/
+
     //丁香园的例子
     public static void main(String[] args) {
 
@@ -41,8 +44,8 @@ public class getAjaxInfo {
 
     }
 
-    /**除了ajax异步请求、有些网站还是js加载，使用JavaSpider工具获取的网页信息和F12开发工具中的不一样。
-     * 如果对js不是特别熟悉，还是使用selenium这种插件吧**/
+    /**除了ajax异步请求、有些网站还是js加载，如果对js不是特别熟悉，还是使用selenium这种插件吧、
+     * 同样使用selenium也是可以绕过ajax、直接加载页面**/
 
     private static String getDxyInfo() {
         //异步请求URL
