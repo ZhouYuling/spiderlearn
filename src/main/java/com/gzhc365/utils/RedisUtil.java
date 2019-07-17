@@ -4,6 +4,10 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public final class RedisUtil {
 
 	// Redis服务器IP
@@ -78,4 +82,60 @@ public final class RedisUtil {
 			jedisPool.returnResource(jedis);
 		}
 	}
+
+	/**
+	 * 返回
+	 * @param listName 需要备份的list的key
+	 * @return 返回备份好的list的新key
+	 */
+	public static String backupList(String listName){
+		Jedis jedis = RedisUtil.getJedis();
+		List<String> lrange = jedis.lrange(listName, 0, jedis.llen(listName));
+		int flag = 1;
+		while(jedis.exists(listName + "_bakup_" + flag)){
+			flag ++ ;
+		}
+		String backupName = listName + "_bakup_" + flag;
+		for (String string : lrange) {
+			jedis.rpush(backupName, string);
+		}
+		return backupName;
+	}
+
+	/**
+	 * 设置
+	 * @param setName 需要备份的set的key值
+	 * @return 返回备份好的新的set的值
+	 */
+	public static String backupSet(String setName){
+		Jedis jedis = RedisUtil.getJedis();
+		Set<String> smem = jedis.smembers(setName);
+		int flag = 1;
+		while(jedis.exists(setName + "_bakup_" + flag)){
+			flag ++ ;
+		}
+		String backupName = setName + "_bakup_" + flag;
+		for (String string : smem) {
+			jedis.sadd(backupName,string);
+		}
+		return backupName;
+	}
+
+	public static String listRemoveDupcate(String listName){
+		Jedis jedis = RedisUtil.getJedis();
+		List<String> lrange = jedis.lrange(listName, 0, jedis.llen(listName));
+		HashSet<String> hashSet = new HashSet<>(lrange);
+		int flag = 1;
+		while(jedis.exists(listName + "_set_" + flag)){
+			flag ++ ;
+		}
+		String setName = listName + "_set_" + flag;
+		for (String s : hashSet) {
+			jedis.lpush(setName,s);
+		}
+		return setName;
+	}
+
+
+
 }
