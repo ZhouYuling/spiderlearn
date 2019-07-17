@@ -1,4 +1,4 @@
-package com.gzhc365.spider;
+package com.gzhc365.pre_learn;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ import com.baidu.aip.ocr.AipOcr;
 /**
  * 更多信息请参看http://ai.baidu.com/docs#/OCR-Java-SDK/top
  */
-public class BaiduOrcSample2 {
+public class _8_picParse_BaiduOrcSample2 {
 
 	//这个可以自己去百度上申请、每天都有免费次数的
 	private static final String APP_ID = "16438814";

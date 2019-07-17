@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * JDBCUtils工具类, 结合配置文件使用
+ * JDBCUtils工具类, 结合配置文件使用，配置文件在resources文件下的druid.properties
  *
  * @author HangGe
  *

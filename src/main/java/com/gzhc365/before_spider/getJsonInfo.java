@@ -1,4 +1,4 @@
-package com.gzhc365.spider;
+package com.gzhc365.before_spider;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -53,75 +53,6 @@ public class getJsonInfo {
         //识别json格式、有些是乱码、不过可以大概看出来
     }
 
-    @Test
-    public void StringToJavaBean() {
 
-        Student json = new Student(19, "李明");
-        List<Student> list = new ArrayList<Student>();
-        list.add(json);
-        list.add(new Student(12, "张三"));
-        /** 将集合或者对象序例化成JSON **/
-//        System.out.println(JSON.toJSON(json));//{"name":"李明","age":19}
-//        System.out.println( JSON.toJSON(list) );//[{"name":"李明","age":19},{"name":"张三","age":12}]
-        /** Json串反序列化成对象 **/
-//        Student person = JSON.parseObject("{\"name\":\"李明\",\"age\":19}", Student.class);
-//        System.out.printf("name:%s,age:%d\n",person.getName(),person.getAge());//name:李明,age:19
-        /** 数组对象反序列化成集合 **/
-//        String str = "[{\"name\":\"李明\",\"age\":19},{\"name\":\"张三\",\"age\":12}]";
-//        List<Student> listPerson = JSON.parseArray(str, Student.class);
-//        for (Student item : listPerson) {
-//            System.out.println( item.getName() );//李明 张三
-//            System.out.println( item.getAge());  //19    12
-//        }
-        /** 没有对象直接解析JSON对象 **/
-//        JSONObject jobj = JSON.parseObject("{\"name\":\"李明\",\"age\":19}");
-//        System.out.printf("name:%s,age:%d\n",jobj.getString("name"),jobj.getBigInteger("age"));//name:李明,age:19
-        /** 没有对象直接解析JSON数组 **/
-//        JSONArray jarr = JSON.parseArray("[{'name':'李明','age':18},{'name':'小四','age':21}]");
-//        JSONArray jarr = JSON.parseArray("[{\"name\":\"李明\",\"age\":19},{\"name\":\"张三\",\"age\":12}]");//转义字符  效果是一致的
-//        System.out.println(jarr);//[{"name":"李明","age":18},{"name":"小四","age":21}]
-//        for (int i = 0, len = jarr.size(); i < len; i++) {
-//            JSONObject temp = jarr.getJSONObject(i);
-//            System.out.println(temp.getString("name") + "," + temp.getBigInteger("age"));//name:李明,age:19    name:张三,age:12
-//            System.out.printf("name:%s,age:%d\n", temp.getString("name"), temp.getBigInteger("age"));//name:李明,age:18   name:小四,age:21
-//        }
-
-        /** 对JSON数组直接toString输出 **/
-//        JSONArray jarr = JSON.parseArray("[{'name':'李明','age':18},{'name':'小四','age':21}]");
-//        for (Object obj : jarr) {
-//            System.out.println(obj.toString()); /*{"name":"李明","age":19}    {"name":"张三","age":12}*/
-//        }
-
-    }
-
-    class Student {
-
-        private String name;
-        private int age;
-
-        public Student() {
-        }
-
-        public Student(int age, String name) {
-            this.name = name;
-            this.age = age;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getAge() {
-            return age;
-        }
-
-        public void setAge(int age) {
-            this.age = age;
-        }
-    }
 }
 

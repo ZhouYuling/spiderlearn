@@ -16,7 +16,14 @@ import java.nio.charset.Charset;
 
 public class JavaSpider {
 
-	private static HttpEntity getHttpEntity(String html) throws Exception {
+	/**
+	 * 传入下载页面的url和需要转码的字符集
+	 * @param html
+	 * @param charset
+	 * @return
+	 * @throws Exception
+	 */
+	private static String getHttpByGet(String html,String charset) throws Exception {
 		/** get请求带参数、方式一 **/
 //		ArrayList<BasicNameValuePair> list2 = new ArrayList<BasicNameValuePair>();
 //		list2.add(new BasicNameValuePair("login_access_token", "Java"));
@@ -41,7 +48,7 @@ public class JavaSpider {
 //			throw new Exception(statusCode + "错误，没有正确爬取网页");
 			throw new MyException(html,statusCode + "错误，没有正确爬取网页");
 		}
-		return indexResponse.getEntity();
+		return EntityUtils.toString(indexResponse.getEntity(),Charset.forName(charset));
 	}
 
 	/**
@@ -50,7 +57,7 @@ public class JavaSpider {
 	 * @return 返回GBK编码的文本
 	 */
 	public static String getHtmlGBK(String html) throws Exception {
-		return EntityUtils.toString(getHttpEntity(html),Charset.forName("GBK"));
+		return getHttpByGet(html,"GBK");
 	}
 
 	/**
@@ -59,13 +66,13 @@ public class JavaSpider {
 	 * @return 返回UTF8编码的文本
 	 */
 	public static String getHtmlUTF8(String html) throws Exception {
-		return EntityUtils.toString(getHttpEntity(html),Charset.forName("utf-8"));
+		return getHttpByGet(html,"utf-8");
 	}
 
 	//===========================================================
 //					post请求和get请求相似
 	//===========================================================
-	public static String postHtml(String html) throws Exception {
+	public static String getHttpByPost(String html) throws Exception {
 
 		HttpPost indexHttpPost = new HttpPost(html);
 		//设置post参数

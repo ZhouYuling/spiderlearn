@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @Author: ZhouYuling
- * @Description:
+ * @Description: 通过QueryRunner进行数据的增删改查
  * @Date: Created in 下午 14:26 2019/7/1 0001
  * @Modified by:
  */

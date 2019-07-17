@@ -1,4 +1,4 @@
-package com.gzhc365.spider;
+package com.gzhc365.pre_learn;
 
 import java.util.HashMap;
 
@@ -9,7 +9,7 @@ import com.baidu.aip.ocr.AipOcr;
 /**
  * 更多信息请参看http://ai.baidu.com/docs#/OCR-Java-SDK/top
  */
-public class BaiduOrcSample {
+public class _8_picParse_BaiduOrcSample {
     //设置APPID/AK/SK
     //这个可以自己去百度上申请、每天都有免费次数的
     private static final String APP_ID = "16438814";
@@ -30,7 +30,7 @@ public class BaiduOrcSample {
 
         // 可选：设置log4j日志输出格式，若不设置，则使用默认配置
         // 也可以直接通过jvm启动参数设置此环境变量
-        System.setProperty("aip.log4j.conf", System.getProperty("user.dir") + "src\\main\\resources\\log4j.properties");
+        System.setProperty("aip.log4j.conf", System.getProperty("user.dir") + "\\src\\main\\resources\\log4j.properties");
 
         // 调用接口
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\pic\\test.png";

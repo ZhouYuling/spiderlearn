@@ -1,4 +1,4 @@
-package com.gzhc365.spider;
+package com.gzhc365.spider.single;
 
 import com.gzhc365.utils.*;
 import com.gzhc365.vo.Dept;
@@ -33,7 +33,7 @@ public class devel_his_05_csszxyy {
 //        getDeptInfo();
 
         //医生信息
-        getDocInfo();
+//        getDocInfo();
 //        getDocInfoByHashSet();//通过HashSet去重医生列表
 
         //楼层分布
@@ -312,7 +312,7 @@ public class devel_his_05_csszxyy {
         ArrayList<String> errorList = new ArrayList<String>();
         //暂时保存url
         String errorUrl = "";
-        HashSet<String> docDetails = new HashSet<>();
+        HashSet<String> docDetails = new HashSet<String>();
         //观察发现医生共有29页,此处只爬取2页做示范
         for (int i = 1; i <= 2; i++) {
             String url ="http://www.csszxyy.com/index_48.aspx?ezeip=/TNSH862MDgNMUHG6fXMozXk96hgubNAJp3QNhlccy5ylGvTePke1KxSnEvD8Kxlsklu5mH%20oVkJTroVlsfjo0muVhdvcAh4vEMVvIDAQbRgnXW9FsCuY8iJz%20IBu1J2tYjWFndPf7EPUsuvFEzo8dmfdKGOEx5/7%206JtWWieeCJqJfd2ZmWWn6RSXzBze/rYxeO5MoBIxeASU42NACbha4k2flIau5Vkxchd7oSqJ72vIEfxUt694e46kQLM2CY&page=";
