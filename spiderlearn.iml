@@ -34,7 +34,6 @@
     <orderEntry type="library" name="Maven: net.sourceforge.htmlunit:htmlunit:2.23" level="project" />
     <orderEntry type="library" name="Maven: xalan:xalan:2.7.2" level="project" />
     <orderEntry type="library" name="Maven: xalan:serializer:2.7.2" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.htmlunit:htmlunit-core-js:2.23" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.htmlunit:neko-htmlunit:2.23" level="project" />
@@ -65,9 +64,12 @@
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.27" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.11" level="project" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.10.3" level="project" />
+    <orderEntry type="library" name="Maven: cn.wanghaomiao:JsoupXpath:2.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: com.baidu.aip:java-sdk:4.11.3" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:4.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.2.6.RELEASE" level="project" />
