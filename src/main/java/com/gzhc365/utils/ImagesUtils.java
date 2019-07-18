@@ -76,11 +76,15 @@ public class ImagesUtils {
 
         try {
             List<Doctor> doctorInfo = MysqlUtil.getDoctorInfoByHisId(his_id);
+            HashMap<String, String> map = new HashMap<String, String>();//用于去重，避免图片的二次上传。key为本地图片地址，value为dfs上的图片地址
             for (Doctor doctor : doctorInfo) {
                 hcPicURL = doctor.getHead_img();
-                String s = null;
+                String s = map.get(hcPicURL);
                 try {
-                    s = uploadPic(hcPicURL);
+                    if(null == s){//如果为空、则表示map没有图片记录
+                        s = uploadPic(hcPicURL);//上传图片
+                        map.put(hcPicURL,s);//同时把图片本地路径和上传dfs上的地址存入map中
+                    }
                 } catch (MyException e) {
                     errorList.add(e.getUrl());
                     System.out.println(e.getUrl() + "  " + e.getMessage());
