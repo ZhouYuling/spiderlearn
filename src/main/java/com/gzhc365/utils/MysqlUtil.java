@@ -98,7 +98,7 @@ public class MysqlUtil {
     }
 
     /**
-     * 自增主键表
+     * 自增主键表，自增主键不能放在insert语句中，不然会获得意想不到的值
      * @param tableName 插入数据的表名
      * @return 返回自增主键的数值
      * @throws SQLException
