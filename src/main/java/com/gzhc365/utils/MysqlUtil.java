@@ -6,7 +6,9 @@ import com.gzhc365.vo.Doctor;
 import com.gzhc365.vo.His;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -93,6 +95,24 @@ public class MysqlUtil {
         //创建object数组
         Object[] params = {doc.getSkill(),doc.getHis_id(),doc.getDoctor_name(),doc.getDept_id(),doc.getCode()};
         return queryRunner.update(sql, params);
+    }
+
+    /**
+     * 自增主键表
+     * @param tableName 插入数据的表名
+     * @return 返回自增主键的数值
+     * @throws SQLException
+     */
+    public static long getInsertPrimaryKey(String tableName) throws SQLException {
+        QueryRunner qr = new QueryRunner(JDBCUtilsDruid.getDataSource());
+        Object _ret = qr.query("SELECT LAST_INSERT_ID() FROM" + tableName, new ScalarHandler());
+        if (_ret instanceof BigInteger) {//类型转换
+            return ((BigInteger) _ret).longValue();
+        } else if (_ret instanceof Long) {
+            return (Long) _ret;
+        } else {
+            return ((Integer) _ret).longValue();
+        }
     }
 
 }
