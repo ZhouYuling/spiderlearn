@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @Author: ZhouYuling
- * @Description: MongoDB的增删改查 MongoDBUtil 0.1，多线程操作时，因为不是单例模式，会有一些问题。运行时间比较长，会导致电脑卡顿
+ * @Description:
  * @Date: Created in 下午 17:23 2019/7/17 0017
  * @Modified by:
  */

@@ -2,12 +2,12 @@ package com.gzhc365.pre_learn;
 
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.apache.http.protocol.HTTP.USER_AGENT;
 
@@ -57,7 +57,7 @@ public class _1_HttpURLConnection {
     @Test
     public void getHtmlByPost() throws IOException {//用于ajax传入username和password登陆和post参数传入
 
-        String url = "http://www.baidu.com";
+        String url = "http://www.woshipm.com/";
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -93,5 +93,4 @@ public class _1_HttpURLConnection {
         }
 
     }
-
 }

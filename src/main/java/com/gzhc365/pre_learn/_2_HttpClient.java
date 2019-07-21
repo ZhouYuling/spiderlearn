@@ -4,12 +4,15 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -44,13 +47,20 @@ public class _2_HttpClient {
         response.close();
     }
 
-    public void getHtmlByPost() throws IOException {
+    @Test
+    public void getHtmlByPost() throws IOException { //https://blog.csdn.net/pengjunlee/article/details/85257369
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://www.baidu.com");
+        HttpPost httpPost = new HttpPost("https://login.taobao.com/member/login.jhtml");
+        httpPost.addHeader("Accept", "*/*");
+        httpPost.addHeader("Accept-Language", "zh-CN,zh;q=0.8");
+        httpPost.addHeader("Connection", "keep-alive");
+        httpPost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+        httpPost.addHeader("Host", "login.taobao.com");
+        httpPost.addHeader("Referer", "https://sycm.taobao.com/custom/login.htm?_target=http://sycm.taobao.com/portal/home.htm");
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("username", "username"));
-        nvps.add(new BasicNameValuePair("password", "password"));
-        nvps.add(new BasicNameValuePair("reURL", "https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9392480696125315742%22%7D&n_type=0&p_from=1"));
+        nvps.add(new BasicNameValuePair("TPL_username", "15510331203"));
+        nvps.add(new BasicNameValuePair("TPL_password_2", "****"));
+        nvps.add(new BasicNameValuePair("TPL_redirect_url", "http://sycm.taobao.com/portal/home.htm"));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response = httpclient.execute(httpPost);
         System.out.println(response.getStatusLine());
@@ -69,6 +79,18 @@ public class _2_HttpClient {
                 HttpEntity entity = response1.getEntity();
                 String html = EntityUtils.toString(entity, Charset.forName("utf-8"));
                 System.out.println(html);
+                //获取cookies
+                CookieStore cookieStore = new BasicCookieStore();
+                List<Cookie> cookies = cookieStore.getCookies();
+                StringBuffer cookie = new StringBuffer();
+                for (Cookie c : cookies) {
+                    cookie.append(c.getName()).append("=").append(c.getValue()).append(";");
+                    if (c.getName().equals("_tb_token_")) {
+                        String tokenStr = c.getValue();
+                        System.out.println(tokenStr);
+                    }
+                }
+                System.out.println(cookie.toString());
             }
             response1.close();
         }
@@ -85,18 +107,15 @@ public class _2_HttpClient {
     public void getHtmlByPostEasyWay() throws IOException {
 
         HttpResponse response = Request.Post("http://www.gzhc365.com/")
-                .bodyForm(Form.form().add("username", "username").add("password", "password").add("reURL","https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9392480696125315742%22%7D&n_type=0&p_from=1").build())
+                .bodyForm(Form.form().add("username", "username").add("password", "password").add("reURL","http://www.gzhc365.com/wisdomhis.html").build())
                 .execute().returnResponse();
         if (response.getStatusLine().getStatusCode() == 302) {
             Header[] locations = response.getHeaders("Location");
             String url = locations[0].getValue();
             System.out.println(url);
-//            HttpGet httpGet = new HttpGet(url);
             String html =  Request.Get(url).execute().returnContent().asString(Charset.forName("UTF-8"));
             System.out.println(html);
         }
-
-
     }
 
 }
