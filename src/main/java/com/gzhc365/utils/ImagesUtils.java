@@ -50,12 +50,12 @@ public class ImagesUtils {
 //        System.out.println(s);
 
         /**上传mysql中doctor表中图片到dfs上并更新字段**/
-        int his_id = 2063;
-//		upMysqlPic(his_id);
+        int his_id = 187;
+		upMysqlPic(his_id);
 
         /**将图片转换为文字**/
-        String textContent = getPictureWordByBaiduOrc(System.getProperty("user.dir") + "\\src\\main\\resources\\pic\\test.png");
-        System.out.println(textContent);
+//        String textContent = getPictureWordByBaiduOrc(System.getProperty("user.dir") + "\\src\\main\\resources\\pic\\test.png");
+//        System.out.println(textContent);
 
     }
 

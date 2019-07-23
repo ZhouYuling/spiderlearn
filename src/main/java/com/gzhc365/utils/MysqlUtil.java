@@ -55,7 +55,8 @@ public class MysqlUtil {
     //获取某个医院的医生列表
     public static List<Doctor> getDoctorInfoByHisId(int his_id)throws SQLException{
         QueryRunner qr = new QueryRunner(JDBCUtilsDruid.getDataSource());
-        String sql = "SELECT * FROM t_hc_doctor where his_id = " + his_id;
+//        String sql = "SELECT * FROM t_hc_doctor where his_id = " + his_id;
+        String sql = "SELECT * FROM t_hc_doctor where his_id = " + his_id +" and head_img like 'c:/images%'"; //过滤已经上传成功的照片
 //        String sql = "SELECT * FROM t_hc_doctor WHERE his_id = 2034 AND skill IS NULL ";
         return qr.query(sql, new BeanListHandler<Doctor>(Doctor.class));
     }
