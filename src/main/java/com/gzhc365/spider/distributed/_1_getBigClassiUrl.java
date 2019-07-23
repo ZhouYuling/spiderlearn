@@ -33,7 +33,6 @@ public class _1_getBigClassiUrl {
                     if ("".equals(href)) {
                         continue;
                     }
-
                     String name = element1.text();
                     String url = "http://drugs.medlive.cn/" + href;
                     jedis.lpush("BigClassiUrl",big[i] + "||" + name + "||" + url);//出入Redis中

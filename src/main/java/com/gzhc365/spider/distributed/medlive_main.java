@@ -29,7 +29,6 @@ public class medlive_main {
 
         //程序入口URL
         String enterUrl = "http://drugs.medlive.cn/drugref/drugCateIndex.do";
-
         getBigClassiUrl(enterUrl);
         getSmallClassiUrl();//获取中小类url
         getDeDetailList(DeDetailList_ThreadNum);//获取所有药品page=?
