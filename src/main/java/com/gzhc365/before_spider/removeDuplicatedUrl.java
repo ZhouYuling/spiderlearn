@@ -3,6 +3,8 @@ package com.gzhc365.before_spider;
 import com.gzhc365.utils.RedisUtil;
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +17,14 @@ import java.util.Set;
 public class removeDuplicatedUrl {
 
     //1.Set集合
+    public HashSet<String> removeDupUrlBySet(ArrayList<String> urlList){
+        HashSet<String> urlSet = new HashSet<>();
+        for (String s : urlList) {
+            urlList.add(s);
+        }
+//        urlList.addAll(urlList);
+        return urlSet;
+    }
 
     //2.Redis中的set
     public void removeDupUrlByRedis(){//取出key为medUrl_other中的所有值、放入key为medUrl_other_bak1的set中

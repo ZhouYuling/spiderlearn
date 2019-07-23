@@ -50,6 +50,7 @@ public class UseSelenium {
         //xpath选择医生列表
         List<WebElement> elements = webDriver.findElements(By.xpath("//*[@class=\"mingyi\"]/ul/li"));//xpath语法http://www.w3school.com.cn/xpath/index.asp
         for (WebElement element : elements) {
+            System.out.println(element.getText());
             System.out.println("===");
             //xpath选择医生名字
             String docName = element.findElement(By.xpath("//*[@class=\"e_warp\"]/h2/a")).getAttribute("title");
@@ -57,6 +58,7 @@ public class UseSelenium {
             String docInfoUrl = element.findElement(By.xpath("//*[@class=\"e_warp\"]/h2/a")).getAttribute("href");
             System.out.println(docName + "   " + docInfoUrl);
         }
+
 
         /** selenium的其他选择器 **/
         //通过html的id

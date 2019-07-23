@@ -126,10 +126,10 @@ public final class RedisUtil {
 		List<String> lrange = jedis.lrange(listName, 0, jedis.llen(listName));
 		HashSet<String> hashSet = new HashSet<>(lrange);
 		int flag = 1;
-		while(jedis.exists(listName + "_set_" + flag)){
+		while(jedis.exists(listName + "_list_" + flag)){
 			flag ++ ;
 		}
-		String setName = listName + "_set_" + flag;
+		String setName = listName + "_list_" + flag;
 		for (String s : hashSet) {
 			jedis.lpush(setName,s);
 		}
