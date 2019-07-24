@@ -23,21 +23,23 @@ public class _3_getDeDetailList {
         ExecutorService pool = Executors.newFixedThreadPool(size);
         for (int i = 0; i < size; i++) {
             pool.submit(new Thread(() -> {
-                while (true) {
-                    Jedis jedis = RedisUtil.getJedis();
-                    String url = "";
-                    try {
-                        List<String> smallClassiUrl = jedis.blpop(10, "SmallClassiUrl");
-//                            String redisKey = smallClassiUrl.get(0);
-                        url = smallClassiUrl.get(1);
-                        parseLine(url,jedis);
-                        Thread.sleep(10);
-                        System.out.println("arrayBlockingQueue.size()" + jedis.llen("SmallClassiUrl") + "  " + url);
-                    } catch (Exception e) {
-                        System.out.println("这个url出错了：" + url);
-                        jedis.lpush("getDeDetailListError",url);
-                    }finally {
-                        RedisUtil.returnResource(jedis);
+                Jedis jedis = RedisUtil.getJedis();
+                String url = "";
+                if (jedis != null) {
+                    while (jedis.exists("SmallClassiUrl")) {
+                        try {
+                            List<String> smallClassiUrl = jedis.blpop(10, "SmallClassiUrl");
+    //                            String redisKey = smallClassiUrl.get(0);
+                            url = smallClassiUrl.get(1);
+                            parseLine(url,jedis);
+                            Thread.sleep(10);
+                            System.out.println("arrayBlockingQueue.size()" + jedis.llen("SmallClassiUrl") + "  " + url);
+                        } catch (Exception e) {
+                            System.out.println("这个url出错了：" + url);
+                            jedis.lpush("getDeDetailListError",url);
+                        }finally {
+                            RedisUtil.returnResource(jedis);
+                        }
                     }
                 }
             }));

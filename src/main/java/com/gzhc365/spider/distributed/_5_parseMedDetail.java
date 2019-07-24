@@ -27,30 +27,32 @@ public class _5_parseMedDetail {
         ExecutorService pool = Executors.newFixedThreadPool(size);
         for (int i = 0; i < size; i++) {
             pool.submit(new Thread(() -> {
-                while (true) {
-                    String url = "";
-                    Jedis jedis =  RedisUtil.getJedis();
-                    try {
-                        List<String> pageUrl = null;
-                        if (jedis != null) {
-                            pageUrl = jedis.blpop(1, "medUrl_other");
-//                                String key = pageUrl.get(0);
-                            url = pageUrl.get(1);
-//                                url = "西药||||β内酰胺类||||阿莫西林胶囊 - 回音必集团浙江亚东制药有限公司||http://drugs.medlive.cn/drugref/html/17683.shtml";
-//                                System.out.println("key:" + key + " url:" + url);
-                            if(url != null && !"".equals(url)){
-                                getMediDetail(url);
+                String url = "";
+                Jedis jedis =  RedisUtil.getJedis();
+                if (jedis != null) {
+                    while (jedis.exists("medUrl_other")) {
+                        try {
+                            List<String> pageUrl = null;
+                            if (jedis != null) {
+                                pageUrl = jedis.blpop(1, "medUrl_other");
+    //                                String key = pageUrl.get(0);
+                                url = pageUrl.get(1);
+    //                                url = "西药||||β内酰胺类||||阿莫西林胶囊 - 回音必集团浙江亚东制药有限公司||http://drugs.medlive.cn/drugref/html/17683.shtml";
+    //                                System.out.println("key:" + key + " url:" + url);
+                                if(url != null && !"".equals(url)){
+                                    getMediDetail(url);
+                                }
                             }
+                            Thread.sleep(10);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            System.out.println("这个url出错了：" + url);
+                            if (jedis != null) {
+                                jedis.rpush("medUrl_other",url);//TODO:这个地方需要修改一下
+                            }
+                        }finally {
+                            RedisUtil.returnResource(jedis);
                         }
-                        Thread.sleep(10);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("这个url出错了：" + url);
-                        if (jedis != null) {
-                            jedis.rpush("medUrl_other",url);//TODO:这个地方需要修改一下
-                        }
-                    }finally {
-                        RedisUtil.returnResource(jedis);
                     }
                 }
             }));

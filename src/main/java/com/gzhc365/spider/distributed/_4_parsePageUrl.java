@@ -25,12 +25,12 @@ public class _4_parsePageUrl {
         ExecutorService pool = Executors.newFixedThreadPool(size);
         for (int i = 0; i < size; i++) {
             pool.submit(new Thread(() -> {
-                while (true) {
-                    String url = "";
-                    Jedis jedis =  RedisUtil.getJedis();
-                    try {
-                        List<String> pageUrl = null;
-                        if (jedis != null) {
+                String url = "";
+                Jedis jedis =  RedisUtil.getJedis();
+                if (jedis != null) {
+                    while (jedis.exists("pageUrl_other")) {
+                        try {
+                            List<String> pageUrl = null;
                             pageUrl = jedis.blpop(1, "pageUrl_other");
 //                            String key = pageUrl.get(0);
                             url = pageUrl.get(1);
@@ -38,16 +38,14 @@ public class _4_parsePageUrl {
                             if(url != null && !"".equals(url)){
                                 parseUrl(url,jedis);
                             }
-                        }
-                        Thread.sleep(10);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("这个url出错了：" + url);
-                        if (jedis != null) {
+                            Thread.sleep(10);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            System.out.println("这个url出错了：" + url);
                             jedis.rpush("pageUrl_other",url);
+                        }finally {
+                            RedisUtil.returnResource(jedis);
                         }
-                    }finally {
-                        RedisUtil.returnResource(jedis);
                     }
                 }
             }));
