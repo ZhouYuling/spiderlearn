@@ -50,7 +50,7 @@ public class ImagesUtils {
 //        System.out.println(s);
 
         /**上传mysql中doctor表中图片到dfs上并更新字段**/
-        int his_id = 187;
+        int his_id = 2297;
 		upMysqlPic(his_id);
 
         /**将图片转换为文字**/
